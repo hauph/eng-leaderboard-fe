@@ -2,7 +2,8 @@
   <h1>Leaderboard</h1>
   <div>
     <Loading :active="loading" :can-cancel="false" :is-full-page="true"></Loading>
-    <Bar v-if="!loading" :data="leaderboardData" :options="options" :style="{ width: '1000px', minHeight: minHeight }" />
+    <Bar v-if="leaderboardData !== null" :data="leaderboardData" :options="options"
+      :style="{ width: '1000px', minHeight: minHeight }" />
   </div>
 </template>
   
@@ -51,6 +52,7 @@ export default {
         .then((data) => {
           const rawData = data.data;
           this.processRawData(rawData);
+          this.loading = false;
         });
     },
     processRawData(rawData: Player[]) {
@@ -81,8 +83,6 @@ export default {
         } else if (counter >= 40) {
           this.minHeight = '1000px';
         }
-
-        this.loading = false;
       }
     },
     randomColor() {
