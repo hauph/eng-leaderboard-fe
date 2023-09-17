@@ -13,9 +13,9 @@ __metadata:
   linkType: hard
 
 "@babel/helper-validator-identifier@npm:^7.22.19":
-  version: 7.22.19
-  resolution: "@babel/helper-validator-identifier@npm:7.22.19"
-  checksum: cf1f94d35cdb2d0f519b31954d1c54929fb31cf8af70fed12b3a1e777c296fabe747e56d9ae3d181c1c96f33ac66aff9501189542554b6fe0508748a38c1c17f
+  version: 7.22.20
+  resolution: "@babel/helper-validator-identifier@npm:7.22.20"
+  checksum: 136412784d9428266bcdd4d91c32bcf9ff0e8d25534a9d94b044f77fe76bc50f941a90319b05aafd1ec04f7d127cd57a179a3716009ff7f3412ef835ada95bdc
   languageName: node
   linkType: hard
 
@@ -211,6 +211,13 @@ __metadata:
   version: 1.4.15
   resolution: "@jridgewell/sourcemap-codec@npm:1.4.15"
   checksum: b881c7e503db3fc7f3c1f35a1dd2655a188cc51a3612d76efc8a6eb74728bef5606e6758ee77423e564092b4a518aba569bbb21c9bac5ab7a35b0c6ae7e344c8
+  languageName: node
+  linkType: hard
+
+"@kurkle/color@npm:^0.3.0":
+  version: 0.3.2
+  resolution: "@kurkle/color@npm:0.3.2"
+  checksum: 79e97b31f8f6efb28c69d373f94b0c7480226fe8ec95221f518ac998e156444a496727ce47de6d728eb5c3369288e794cba82cae34253deb0d472d3bfe080e49
   languageName: node
   linkType: hard
 
@@ -585,6 +592,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chart.js@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "chart.js@npm:4.4.0"
+  dependencies:
+    "@kurkle/color": ^0.3.0
+  checksum: 5ee2d99b78608025525b5790af17178fdaa5adc3294e082deba2718029b0496109ba124f1b08dd1e4c8a04d6e842be7f384f2cfe9a11df8d1c6fe884acece52b
+  languageName: node
+  linkType: hard
+
 "chokidar@npm:>=3.0.0 <4.0.0":
   version: 3.5.3
   resolution: "chokidar@npm:3.5.3"
@@ -861,12 +877,15 @@ __metadata:
   dependencies:
     "@types/node": ^20.6.2
     "@vitejs/plugin-vue": ^4.2.3
+    chart.js: ^4.4.0
     sass: ^1.67.0
     typescript: ^5.0.2
     vite: ^4.4.5
     vue: ^3.3.4
+    vue-chartjs: ^5.2.0
     vue-router: 4
     vue-tsc: ^1.8.5
+    vue3-loading-overlay: ^0.0.0
     vue3-toastify: ^0.1.12
   languageName: unknown
   linkType: soft
@@ -1815,6 +1834,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vue-chartjs@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "vue-chartjs@npm:5.2.0"
+  peerDependencies:
+    chart.js: ^4.1.1
+    vue: ^3.0.0-0 || ^2.7.0
+  checksum: e707bcbe442d85a3ec23825620f6b1ba4f43eba67c68e1bd845ef5536b754c4447dc9a249f4ec92f8a29a479981b07382bd32b6449686676dd22d5e18f366ffa
+  languageName: node
+  linkType: hard
+
 "vue-router@npm:4":
   version: 4.2.4
   resolution: "vue-router@npm:4.2.4"
@@ -1848,6 +1877,15 @@ __metadata:
   bin:
     vue-tsc: bin/vue-tsc.js
   checksum: 09a0fb256223b4d3ba9674fc3fec8b82d71b91532131298131b1b63214312dc86bc2942e5971e0771ccba15b82bf09fd5873459d223d0122dd4feea5c57e6ec9
+  languageName: node
+  linkType: hard
+
+"vue3-loading-overlay@npm:^0.0.0":
+  version: 0.0.0
+  resolution: "vue3-loading-overlay@npm:0.0.0"
+  peerDependencies:
+    vue: ^3.0.0-beta.13
+  checksum: 834bc88247381330869ba335b7a15b1cdb4e583df32e0692edeeba71ecaa5d9e88ea8a15ecb165fbec67083f2a100cae4e626a627dd42e295df8388332b0b951
   languageName: node
   linkType: hard
 

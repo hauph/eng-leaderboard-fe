@@ -1,5 +1,6 @@
 <template>
     <div>
+        <loading :active="loading" :can-cancel="false" :is-full-page="true"></loading>
         <h1>CSV File Upload</h1>
         <div class="input-wrapper">
             <label for="textInput">Who is uploading result file?</label>
@@ -24,16 +25,21 @@
 </template>
   
 <script lang="ts">
+import Loading from 'vue3-loading-overlay';
 import { toast } from 'vue3-toastify';
-import { SCORE_ENDPOINTS } from '../endpoints';
-import { Player } from '../interfaces'
+import { SCORE_ENDPOINTS } from '../../endpoints';
+import { Player } from '../../interfaces'
 
 export default {
     name: 'Admin',
+    components: {
+        Loading
+    },
     data() {
         return {
             csvData: null as string | null,
             extractedData: [],
+            loading: false
         };
     },
     methods: {
@@ -72,6 +78,8 @@ export default {
                 return;
             }
 
+            this.loading = true;
+
             const arrayData = this.csvData.split('\n');
             const body = arrayData.slice(2).reduce((acc: Player[], row) => {
                 const arrayPerRow = row.split(',');
@@ -96,6 +104,11 @@ export default {
                     toast.success("Leaderboard has been updated", {
                         autoClose: 2000,
                     });
+
+                    // Reset the form
+                    (this.$refs.fileInput as HTMLInputElement).value = '';
+                    (this.$refs.nameSelect as HTMLInputElement).value = '';
+                    this.csvData = null;
                 } else {
                     toast.error("Something went wrong", {
                         autoClose: 2000,
@@ -106,6 +119,8 @@ export default {
                 toast.error("Something went wrong", {
                     autoClose: 2000,
                 });
+            } finally {
+                this.loading = false
             }
         },
     },
