@@ -1,6 +1,6 @@
 <template>
     <div>
-        <loading :active="loading" :can-cancel="false" :is-full-page="true"></loading>
+        <Loading :active="loading" :can-cancel="false" :is-full-page="true"></Loading>
         <h1>CSV File Upload</h1>
         <div class="input-wrapper">
             <label for="textInput">Who is uploading result file?</label>

@@ -1,7 +1,7 @@
 <template>
   <h1>Leaderboard</h1>
   <div>
-    <loading :active="loading" :can-cancel="false" :is-full-page="true"></loading>
+    <Loading :active="loading" :can-cancel="false" :is-full-page="true"></Loading>
     <Bar v-if="!loading" :data="leaderboardData" :options="options" :style="{ width: '1000px', minHeight: minHeight }" />
   </div>
 </template>
@@ -14,7 +14,9 @@ import {
   Legend,
   BarElement,
   CategoryScale,
-  LinearScale
+  LinearScale,
+  ChartData,
+  ChartOptions
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
 import Loading from 'vue3-loading-overlay';
@@ -32,8 +34,8 @@ export default {
   },
   data() {
     return {
-      leaderboardData: null as null | object,
-      options: barOptions,
+      leaderboardData: null as unknown as ChartData<"bar", (number | [number, number] | null)[], unknown>,
+      options: barOptions as unknown as ChartOptions<"bar">,
       minHeight: '500px',
       loading: true
     };
