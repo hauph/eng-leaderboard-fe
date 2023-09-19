@@ -3,4 +3,5 @@ export interface Player {
     name: string;
     score: number;
     uploader?: string;
+    created_at?: Date
 }
