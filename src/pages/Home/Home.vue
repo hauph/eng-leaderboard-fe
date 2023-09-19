@@ -19,13 +19,12 @@ import {
   ChartData,
   ChartOptions
 } from 'chart.js'
-import { Bar } from 'vue-chartjs'
+import { Bar } from 'vue-chartjs';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Loading from 'vue3-loading-overlay';
 import { SCORE_ENDPOINTS } from '../../endpoints';
 import { Player } from '../../interfaces'
 import { barOptions } from './bar-options'
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 export default {
   name: 'Home',
@@ -36,13 +35,15 @@ export default {
   data() {
     return {
       leaderboardData: null as unknown as ChartData<"bar", (number | [number, number] | null)[], unknown>,
-      options: barOptions as unknown as ChartOptions<"bar">,
+      options: null as unknown as ChartOptions<"bar">,
       minHeight: '500px',
-      loading: true
+      loading: true,
+      updated_at: new Date()
     };
   },
   mounted() {
-    this.fetchData()
+    this.fetchData();
+    ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels)
   },
   methods: {
     fetchData() {
@@ -56,13 +57,21 @@ export default {
         });
     },
     processRawData(rawData: Player[]) {
-      if (rawData.length > 0) {
+      if (Array.isArray(rawData) && rawData.length > 0) {
+        this.updated_at = new Date(rawData[0].created_at ?? this.updated_at);
+        this.options = barOptions(this.updated_at);
+
         this.leaderboardData = {
           labels: [],
           datasets: [
             {
               data: [],
               backgroundColor: [],
+              borderColor: [],
+              borderWidth: 1,
+              datalabels: {
+                color: 'grey',
+              }
             },
           ],
         }
@@ -71,9 +80,13 @@ export default {
         rawData.forEach((player: Player, index: number) => {
           const { name, score } = player;
           if (score > 0) {
+            const red = this.randomColor();
+            const green = this.randomColor();
+            const blue = this.randomColor();
             (this.leaderboardData as any).labels.push(`(${index + 1}) ${name}`);
             (this.leaderboardData as any).datasets[0].data.push(score);
-            (this.leaderboardData as any).datasets[0].backgroundColor.push(this.randomColor() === '#ffffff' ? '#000000' : this.randomColor());
+            (this.leaderboardData as any).datasets[0].backgroundColor.push(`rgba(${red}, ${green}, ${blue}, 0.2)`);
+            (this.leaderboardData as any).datasets[0].borderColor.push(`rgba(${red}, ${green}, ${blue}, 1)`);
             counter++;
           }
         });
@@ -86,7 +99,7 @@ export default {
       }
     },
     randomColor() {
-      return '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+      return Math.floor(Math.random() * 256);
     }
   }
 };
