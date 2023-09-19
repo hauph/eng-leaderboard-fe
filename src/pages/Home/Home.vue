@@ -57,7 +57,7 @@ export default {
         });
     },
     processRawData(rawData: Player[]) {
-      if (rawData.length && rawData.length > 0) {
+      if (Array.isArray(rawData) && rawData.length > 0) {
         this.updated_at = new Date(rawData[0].created_at ?? this.updated_at);
         this.options = barOptions(this.updated_at);
 
