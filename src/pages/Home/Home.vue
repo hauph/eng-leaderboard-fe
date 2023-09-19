@@ -53,13 +53,13 @@ export default {
         .then((data) => {
           const rawData = data.data;
           this.processRawData(rawData);
-          this.options = barOptions(this.updated_at);
           this.loading = false;
         });
     },
     processRawData(rawData: Player[]) {
-      if (rawData.length > 0) {
+      if (rawData.length && rawData.length > 0) {
         this.updated_at = new Date(rawData[0].created_at ?? this.updated_at);
+        this.options = barOptions(this.updated_at);
 
         this.leaderboardData = {
           labels: [],
