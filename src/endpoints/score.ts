@@ -1,1 +1,1 @@
-export const SCORE_ENDPOINTS = '/scores'
+export const SCORE_ENDPOINTS = '/api/scores'
